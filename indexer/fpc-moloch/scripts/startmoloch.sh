@@ -33,22 +33,5 @@ if [ -r /.firstboot ]; then
 	rm /.firstboot
 fi
 
-# capture
-#if [ -z $1 ]; then
-#	echo "Not starting capture, start capturing with giving 'capture' parameter"
-#  #start with amqp reader
-#else
-#	echo "Starting capture on default interface. Change /data/moloch/etc/config.ini"
-#	nohup /data/moloch/bin/moloch-capture
-#fi
-#
-#echo
-#echo "How to import pcap?"
-#echo " - docker run -d --name moloch -v /path/to/host/dir/with/pcap:/data/pcap:rw danielguerra/moloch"
-#echo " - docker exec moloch /data/moloch/bin/moloch-capture -r /data/pcap/sniff.pcap -t mysniff --copy"
-#echo
-#echo "PLEASE ignore error about mising log file. It's standard moloch start script"
 echo "Starting viewer. Go with https to port 8005 of container."
-#cd /data/moloch/viewer
-##node viewer.js
 /usr/bin/supervisord -c /data/moloch/etc/supervisor.conf

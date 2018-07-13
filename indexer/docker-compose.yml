@@ -1,31 +1,32 @@
 version: "2"
 
 services:
-  moloch_elasticsearch:
+  elasticsearch:
     image: elasticsearch:5.2.2-alpine
     restart: always
-    hostname: moloch_elasticsearch
-    container_name: moloch_elasticsearch
+    hostname: fpc-elasticsearch
+    container_name: fpc-elasticsearch
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/moloch/elasticsearch:/usr/share/elasticsearch/data
     network_mode: bridge
 
-  moloch_capture:
-    build: ./docker-moloch
-    image: danielguerra/docker-moloch
+  capture:
+    build: ./fpc-moloch
+    image: xme/fpc-moloch:latest
     restart: always
-    hostname: moloch_capture
-    container_name: moloch_capture
+    hostname: fpc-moloch
+    container_name: fpc-moloch
     depends_on:
-      - moloch_elasticsearch
+      - fpc-elasticsearch
     links:
-      - moloch_elasticsearch:elasticsearch
+      - fpc-elasticsearch:elasticsearch
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/moloch/core/etc:/data/moloch/etc:rw
       - /data/moloch/core/raw:/data/moloch/raw:rw
-      - /data/tcpdump:/data/pcap:rw
+      - /data/pcap:/data/pcap:rw
     ports:
+      - '8443:8443'
       - '8005:8005'
     network_mode: bridge
