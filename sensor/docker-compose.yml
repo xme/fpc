@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  fpc-sensor:
+    build: .
+    image: xme/fpc-sensor:latest
+    restart: always
+    hostname: fpc-sensor
+    container_name: fpc-sensor
+    network_mode: host
+    environment:
+      - INDEXER=moloch.company.com:8443
+      - PCAP_INTERFACE=eth0
+      - PCAP_SNAPLEN=0
+      - PCAP_BPF_FILTER=not port 65522 and not port 1194 and not port 8443
