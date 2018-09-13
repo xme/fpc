@@ -18,9 +18,9 @@ services:
     hostname: fpc-moloch
     container_name: fpc-moloch
     depends_on:
-      - fpc-elasticsearch
+      - elasticsearch
     links:
-      - fpc-elasticsearch:elasticsearch
+      - elasticsearch:fpc-elasticsearch
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/moloch/core/etc:/data/moloch/etc:rw
